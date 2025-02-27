@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Xin.Service.User.Dto
+{
+    public class UserAddInput
+    {
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        [Required(ErrorMessage = "用户名必填")]
+        public string UserName { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        [Required(ErrorMessage = "密码必填")]
+        public string Password { get; set; }
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public string? NickName { get; set; }
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string? PhoneNumber { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public int? Sex { get; set; }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        [Required(ErrorMessage = "状态必填")]
+        public int Status { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string? Remark { get; set; }
+    }
+}

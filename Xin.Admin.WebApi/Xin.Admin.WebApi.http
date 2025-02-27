@@ -1,0 +1,6 @@
+@Xin.Admin.WebApi_HostAddress = http://localhost:5054
+
+GET {{Xin.Admin.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
