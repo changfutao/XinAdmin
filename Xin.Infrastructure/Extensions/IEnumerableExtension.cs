@@ -1,4 +1,4 @@
-namespace Xin.Infrastructure.Extensions;
+namespace System.Linq;
 
 public static class IEnumerableExtension
 {

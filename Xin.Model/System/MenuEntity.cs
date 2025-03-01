@@ -67,8 +67,8 @@ namespace Xin.Model
         /// 菜单类型(0 目录 1 菜单 2 按钮 3 链接)
         /// </summary>
         [Column(Position = 10)]
-        [Description("菜单类型(0 目录 1 菜单 2 按钮 3 链接)")]
-        public int MenuType { get; set; }
+        [Description("菜单类型(0 目录 1 菜单 2 权限点 3 链接)")]
+        public MenuTypeEnum MenuType { get; set; }
         /// <summary>
         /// 是否显示
         /// </summary>
@@ -87,5 +87,21 @@ namespace Xin.Model
         [Column(Position = 13, StringLength = 30)]
         [Description("图标")]
         public string? Icon { get; set; }
+    }
+
+    public enum MenuTypeEnum
+    {
+        /// <summary>
+        /// 分组
+        /// </summary>
+        Group,
+        /// <summary>
+        /// 菜单
+        /// </summary>
+        Menu,
+        /// <summary>
+        /// 权限点
+        /// </summary>
+        Dot
     }
 }

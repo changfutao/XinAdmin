@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xin.Model;
 
 namespace Xin.Service.Menu.Dto
 {
@@ -44,7 +45,7 @@ namespace Xin.Service.Menu.Dto
         /// <summary>
         /// 菜单类型 0 目录 1 菜单 2 按钮
         /// </summary>
-        public int MenuType { get; set; }
+        public MenuTypeEnum MenuType { get; set; }
         /// <summary>
         /// 前端按钮权限
         /// </summary>

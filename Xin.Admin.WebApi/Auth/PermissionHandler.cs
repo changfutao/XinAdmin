@@ -17,9 +17,15 @@ namespace Xin.Admin.WebApi.Auth
         /// </summary>
         /// <param name="api">接口路径</param>
         /// <returns></returns>
-        public Task<bool> ValidateAsync(string api)
+        public async Task<bool> ValidateAsync(string api, long userId)
         {
-            return Task.FromResult(true);
+            // 查询当前用户的菜单权限
+            //var userMenu = await _userService.GetUserMenusAsync(userId);
+            //if(!userMenu.Menus.Any(a => a.Path == api))
+            //{
+            //    return false;
+            //}
+            return true;
         }
     }
 }

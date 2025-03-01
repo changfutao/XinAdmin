@@ -7,6 +7,6 @@
         /// </summary>
         /// <param name="api"></param>
         /// <returns></returns>
-        Task<bool> ValidateAsync(string api);
+        Task<bool> ValidateAsync(string api, long userId);
     }
 }

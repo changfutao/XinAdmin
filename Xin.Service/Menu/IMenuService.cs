@@ -15,6 +15,6 @@ namespace Xin.Service.Menu
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<(List<MenuDto>, List<MenuDto>)> GetMenusByUserIdAsync(long id);
+        Task<List<MenuDto>> GetMenusByUserIdAsync(long id);
     }
 }

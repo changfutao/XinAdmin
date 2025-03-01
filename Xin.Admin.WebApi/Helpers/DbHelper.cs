@@ -150,7 +150,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu1.MenuName = "系统管理";
                 menu1.IsFrame = false;
                 menu1.IsVisible = true;
-                menu1.MenuType = 0;
+                menu1.MenuType = MenuTypeEnum.Group;
                 menu1.ParentId = 0;
                 menu1.Sort = 1;
                 menus.Add(menu1);
@@ -158,7 +158,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu2.MenuName = "用户管理";
                 menu2.IsFrame = false;
                 menu2.IsVisible = true;
-                menu2.MenuType = 1;
+                menu2.MenuType = MenuTypeEnum.Menu;
                 menu2.ParentId = menu1.Id;
                 menu2.Sort = 1;
                 menu2.FrontName = "user";
@@ -170,7 +170,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu3.MenuName = "角色管理";
                 menu3.IsFrame = false;
                 menu3.IsVisible = true;
-                menu3.MenuType = 1;
+                menu3.MenuType = MenuTypeEnum.Menu;
                 menu3.ParentId = menu1.Id;
                 menu3.Sort = 1;
                 menu3.FrontName = "role";
@@ -182,7 +182,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu4.MenuName = "菜单管理";
                 menu4.IsFrame = false;
                 menu4.IsVisible = true;
-                menu4.MenuType = 1;
+                menu4.MenuType = MenuTypeEnum.Menu;
                 menu4.ParentId = menu1.Id;
                 menu4.Sort = 1;
                 menu4.FrontName = "menu";
@@ -194,7 +194,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu5.MenuName = "添加";
                 menu5.IsFrame = false;
                 menu5.IsVisible = true;
-                menu5.MenuType = 2;
+                menu5.MenuType = MenuTypeEnum.Dot;
                 menu5.ParentId = menu2.Id;
                 menu5.Sort = 1;
                 menu5.FrontName = "";
@@ -207,7 +207,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu6.MenuName = "编辑";
                 menu6.IsFrame = false;
                 menu6.IsVisible = true;
-                menu6.MenuType = 2;
+                menu6.MenuType = MenuTypeEnum.Dot;
                 menu6.ParentId = menu2.Id;
                 menu6.Sort = 1;
                 menu6.FrontName = "";
@@ -220,7 +220,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu7.MenuName = "删除";
                 menu7.IsFrame = false;
                 menu7.IsVisible = true;
-                menu7.MenuType = 2;
+                menu7.MenuType = MenuTypeEnum.Dot;
                 menu7.ParentId = menu2.Id;
                 menu7.Sort = 1;
                 menu7.FrontName = "";

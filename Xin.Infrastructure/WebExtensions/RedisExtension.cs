@@ -20,7 +20,7 @@ namespace Xin.Infrastructure.WebExtensions
             var redisServerModel = configuration.GetSection("RedisServer").Get<RedisServerModel>();
             if(redisServerModel == null)
             {
-                throw new ArgumentNullException("Redis Paramtet Is Not Exist");
+                throw new ArgumentNullException("Redis Paramenter Is Not Exist");
             }
             // Redis启用的话注入服务
             if (redisServerModel.Enable)

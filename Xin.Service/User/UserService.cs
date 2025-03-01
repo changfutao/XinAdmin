@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xin.Infrastructure.Cache;
+using Xin.Infrastructure.Consts;
 using Xin.Infrastructure.Dto;
 using Xin.Infrastructure.Model;
 using Xin.Model;
+using Xin.Service.Menu.Dto;
 using Xin.Service.User.Dto;
 
 namespace Xin.Service.User
@@ -14,10 +17,12 @@ namespace Xin.Service.User
     public class UserService : IUserService
     {
         private readonly IFreeSql<SqlServerFlag> _fsql;
+        private readonly ICache _cache;
 
-        public UserService(IFreeSql<SqlServerFlag> fsql)
+        public UserService(IFreeSql<SqlServerFlag> fsql, ICache cache)
         {
             _fsql = fsql;
+            _cache = cache;
         }
 
         /// <summary>
@@ -44,15 +49,6 @@ namespace Xin.Service.User
                         .FirstAsync();
         }
 
-        /// <summary>
-        /// 获取用户的菜单
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public void GetUserMenusAsync(long id)
-        {
-
-        }
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -130,11 +126,11 @@ namespace Xin.Service.User
             var user = await _fsql.Select<UserEntity>()
                   .Where(a => a.Id == input.Id)
                   .FirstAsync();
-            if(user == null)
+            if (user == null)
             {
                 return ResultOutput.NotOk("用户不存在");
             }
-            if(!user.Password.Equals(input.OriginPwd))
+            if (!user.Password.Equals(input.OriginPwd))
             {
                 return ResultOutput.NotOk("原密码错误");
             }

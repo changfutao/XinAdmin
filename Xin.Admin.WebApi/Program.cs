@@ -9,6 +9,7 @@ using System.Text;
 using Xin.Admin.WebApi.Auth;
 using Xin.Admin.WebApi.Helpers;
 using Xin.Infrastructure;
+using Xin.Infrastructure.Cache;
 using Xin.Infrastructure.Dto;
 using Xin.Infrastructure.Filters;
 using Xin.Infrastructure.Helpers;
@@ -102,6 +103,10 @@ public class Program
 
         #region ×¢ÈëCors
         builder.Services.AddCors(configuration);
+        #endregion
+
+        #region »º´æ
+        builder.Services.AddSingleton<ICache, RedisCache>();
         #endregion
 
         #region ×¢ÈëRedis

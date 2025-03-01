@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Xin.Admin.WebApi.Auth;
+using Xin.Infrastructure.Helpers;
 
 namespace Xin.Infrastructure.Attributes
 {
@@ -39,7 +40,7 @@ namespace Xin.Infrastructure.Attributes
             var api = context.ActionDescriptor.AttributeRouteInfo.Template;
             // 判断当前用户是否具有此权限
             var permissionHandler = context.HttpContext.RequestServices.GetService<IPermissionHandler>();
-            var isValid = await permissionHandler.ValidateAsync(api);
+            var isValid = await permissionHandler.ValidateAsync(api, user.Value.ToLong());
             if(!isValid)
             {
                 context.Result = new ForbidResult();

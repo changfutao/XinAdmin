@@ -76,6 +76,7 @@ namespace Xin.Admin.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Login]
         public async Task<IResultOutput> GetUserInfoAndMenus()
         {
             var claims = _contextAccessor?.HttpContext?.User?.Claims;
@@ -84,12 +85,17 @@ namespace Xin.Admin.WebApi.Controllers
                 var claimUserId = claims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId);
                 if (claimUserId != null)
                 {
-                    long id = long.Parse(claimUserId.Value);
+                    var authUserInfo = new AuthUserInfoDto();
+                    long id = claimUserId.Value.ToLong();
                     var user = await _userService.GetAsync(id);
-                    var userInfoDto = user.Adapt<UserInfoDto>();
-
-                    (List<MenuDto> topMenus, List<MenuDto> menuList) = await _menuService.GetMenusByUserIdAsync(id);
-                    return ResultOutput.Ok(new { userInfo = userInfoDto, menus = topMenus, menuList });
+                    if(user != null)
+                    {
+                        authUserInfo.UserName = user.UserName;
+                        authUserInfo.NickName = user.NickName;
+                    }
+                    var userMenus = await _menuService.GetMenusByUserIdAsync(id);
+                    authUserInfo.Menus = userMenus;
+                    return ResultOutput.Ok(authUserInfo);
                 }
             }
             return ResultOutput.NotOk("没有获取用户");
