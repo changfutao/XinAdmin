@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xin.Model.Enums;
 
 namespace Xin.Service.User.Dto
 {
@@ -18,6 +19,6 @@ namespace Xin.Service.User.Dto
         /// <summary>
         /// 状态
         /// </summary>
-        public int? Status { get; set; }
+        public UserStatusEnum? Status { get; set; }
     }
 }

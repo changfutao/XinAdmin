@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xin.Infrastructure.Entities;
+using Xin.Model.Enums;
 
 namespace Xin.Model
 {
@@ -44,13 +45,13 @@ namespace Xin.Model
         /// </summary>
         [Column(Position = 6)]
         [Description("用户性别")]
-        public int? Sex { get; set; }
+        public SexEnum? Sex { get; set; }
         /// <summary>
         /// 状态 
         /// </summary>
         [Column(Position =7)]
-        [Description("状态 0 正常 1 锁定 2 离职")]
-        public int Status { get; set; }
+        [Description("状态 0 在职 1 锁定 2 离职")]
+        public UserStatusEnum Status { get; set; }
         /// <summary>
         /// 密码错误次数
         /// </summary>

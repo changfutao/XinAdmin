@@ -6,8 +6,10 @@ using Xin.Infrastructure;
 using Xin.Infrastructure.Dto;
 using Xin.Infrastructure.Model;
 using Xin.Model;
+using Xin.Model.Enums;
 using Xin.Service.User;
 using Xin.Service.User.Dto;
+using Xin.Infrastructure.Extensions;
 
 namespace Xin.Admin.WebApi.Controllers
 {
@@ -83,6 +85,23 @@ namespace Xin.Admin.WebApi.Controllers
         {
             return await _userService.EditAsync(input);
         }
-
+        /// <summary>
+        /// 获取用户状态
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IResultOutput GetUserStatus()
+        {
+            return ResultOutput.Ok(typeof(UserStatusEnum).ToOptionViewModels());
+        }
+        /// <summary>
+        /// 获取性别
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IResultOutput GetSexs()
+        {
+            return ResultOutput.Ok(typeof(SexEnum).ToOptionViewModels());
+        }
     }
 }

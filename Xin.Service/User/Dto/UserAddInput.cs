@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xin.Model.Enums;
 
 namespace Xin.Service.User.Dto
 {
@@ -30,12 +31,12 @@ namespace Xin.Service.User.Dto
         /// <summary>
         /// 性别
         /// </summary>
-        public int? Sex { get; set; }
+        public SexEnum? Sex { get; set; }
         /// <summary>
         /// 状态
         /// </summary>
         [Required(ErrorMessage = "状态必填")]
-        public int Status { get; set; }
+        public UserStatusEnum Status { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
