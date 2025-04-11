@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Mapster.Utils;
 using Xin.Infrastructure.Dto;
 
 namespace Xin.Infrastructure.Extensions
@@ -16,7 +17,7 @@ namespace Xin.Infrastructure.Extensions
     {
         public static string ToDescription(this Enum @enum)
         {
-            FieldInfo? field = @enum.GetType().GetField(@enum.ToString(), BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo? field = @enum.GetType().GetField(@enum.ToString(), BindingFlags.Public | BindingFlags.Static);
             if (field != null)
             {
                 var desc = field.GetCustomAttribute<DescriptionAttribute>();
@@ -34,11 +35,9 @@ namespace Xin.Infrastructure.Extensions
         /// <param name="type">枚举Type</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static IEnumerable<OptionOutput> ToOptionViewModels(this Type type)
+        public static IEnumerable<OptionOutput> ToOptionViewModels(this Enum value)
         {
-            if (type.BaseType != typeof(Enum)) throw new Exception("type must be Enum");
-
-            return Enum.GetValues(type).Cast<Enum>().Select(a => new OptionOutput
+            return Enum.GetValues(value.GetType()).Cast<Enum>().Select(a => new OptionOutput
             {
                 Label = a.ToDescription(),
                 Value = a

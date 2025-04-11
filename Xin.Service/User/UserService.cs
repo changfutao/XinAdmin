@@ -9,6 +9,7 @@ using Xin.Infrastructure.Consts;
 using Xin.Infrastructure.Dto;
 using Xin.Infrastructure.Model;
 using Xin.Model;
+using Xin.Model.ImageWareHouse;
 using Xin.Service.Menu.Dto;
 using Xin.Service.User.Dto;
 
@@ -56,15 +57,25 @@ namespace Xin.Service.User
         /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<UserInput> input)
         {
-            var users = await _fsql.Select<UserEntity>()
-                  .WhereIf(!string.IsNullOrEmpty(input.Filter.UserName), a => a.UserName.Contains(input.Filter.UserName))
-                  .WhereIf(input.Filter.Status.HasValue, a => a.Status == input.Filter.Status.Value)
+            var users = await _fsql.Select<UserEntity, ImageEntity>()
+                  .WhereIf(input.Filter != null && !string.IsNullOrEmpty(input.Filter.UserName), (a, b) => a.UserName.Contains(input.Filter.UserName))
+                  .WhereIf(input.Filter != null && input.Filter.Status.HasValue, (a, b) => a.Status == input.Filter.Status.Value)
+                  .LeftJoin((a, b) => a.AvatorId == b.Id)
                   .Count(out long total)
                   .Skip((input.CurrentPage - 1) * input.PageSize)
                   .Take(input.PageSize)
-                  .ToListAsync();
-            var list = users.Adapt<List<UserDto>>();
-            return ResultOutput.Ok(new PageOutput<UserDto>() { Total = total, List = list });
+                  .ToListAsync((a, b) => new UserDto
+                  {
+                      Id = a.Id,
+                      UserName = a.UserName,
+                      NickName = a.NickName,
+                      Phonenumber = a.Phonenumber,
+                      Sex = a.Sex,
+                      Status = a.Status,
+                      AvatorId = a.AvatorId,
+                      AvatorPath = b.Path
+                  });
+            return ResultOutput.Ok(new PageOutput<UserDto>() { Total = total, List = users });
         }
 
         /// <summary>
@@ -74,7 +85,13 @@ namespace Xin.Service.User
         /// <returns></returns>
         public async Task<IResultOutput> AddAsync(UserAddInput input)
         {
+            // 判断用户名唯一
+            if (await _fsql.Select<UserEntity>().AnyAsync(a => a.UserName == input.UserName))
+            {
+                return ResultOutput.NotOk("用户名已存在!");
+            }
             var user = input.Adapt<UserEntity>();
+            user.Password = "666666";
             await _fsql.Insert(user).ExecuteAffrowsAsync();
             return ResultOutput.Ok();
         }
@@ -99,19 +116,18 @@ namespace Xin.Service.User
         /// <returns></returns>
         public async Task<IResultOutput> EditAsync(UserEditInput input)
         {
-            var user = await _fsql.Select<UserEntity>()
-                                            .Where(a => a.Id == input.Id)
-                                            .FirstAsync();
-            if (user == null)
+            if (await _fsql.Select<UserEntity>().AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
             {
-                return ResultOutput.NotOk("用户不存在");
+                return ResultOutput.NotOk("用户已存在");
             }
             await _fsql.Update<UserEntity>()
                 .Set(a => a.Status, input.Status)
                 .Set(a => a.Sex, input.Sex)
                 .Set(a => a.NickName, input.NickName)
                 .Set(a => a.Remark, input.Remark)
-                .Set(a => a.Phonenumber, input.PhoneNumber)
+                .Set(a => a.Phonenumber, input.Phonenumber)
+                .Set(a => a.AvatorId, input.AvatorId)
+                .Where(a => a.Id == input.Id)
                 .ExecuteAffrowsAsync();
             return ResultOutput.Ok();
         }

@@ -8,7 +8,7 @@ namespace Xin.Model.ImageWareHouse;
 /// </summary>
 [Table(Name = "bus_image")]
 [Description("图片信息")]
-public class ImageEntity: EntityFull<long>
+public class ImageEntity: EntityFull
 {
     /// <summary>
     /// 图片名称

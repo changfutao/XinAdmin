@@ -71,9 +71,9 @@ namespace Xin.Admin.WebApi.Controllers
         /// <param name="id">用户id</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> Delete(long[] ids)
+        public async Task<IResultOutput> Delete(DelDto dto)
         {
-            return await _userService.DeleteAsync(ids);
+            return await _userService.DeleteAsync(dto.ids);
         }
         /// <summary>
         /// 用户修改
@@ -92,7 +92,7 @@ namespace Xin.Admin.WebApi.Controllers
         [HttpGet]
         public IResultOutput GetUserStatus()
         {
-            return ResultOutput.Ok(typeof(UserStatusEnum).ToOptionViewModels());
+            return ResultOutput.Ok(UserStatusEnum.Normal.ToOptionViewModels());
         }
         /// <summary>
         /// 获取性别
@@ -101,7 +101,7 @@ namespace Xin.Admin.WebApi.Controllers
         [HttpGet]
         public IResultOutput GetSexs()
         {
-            return ResultOutput.Ok(typeof(SexEnum).ToOptionViewModels());
+            return ResultOutput.Ok(SexEnum.Man.ToOptionViewModels());
         }
     }
 }

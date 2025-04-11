@@ -85,6 +85,12 @@ namespace Xin.Model
         [Description("最后登录时间")]
         public DateTime? LoginDate { get; set; }
         /// <summary>
+        /// 头像Id
+        /// </summary>
+        [Column(Position = 13)]
+        [Description("头像Id")]
+        public long? AvatorId { get; set; }
+        /// <summary>
         /// 租户Id
         /// </summary>
         [Column(Position = -9)]

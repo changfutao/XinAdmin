@@ -16,18 +16,13 @@ namespace Xin.Service.User.Dto
         [Required(ErrorMessage = "用户名必填")]
         public string UserName { get; set; }
         /// <summary>
-        /// 密码
-        /// </summary>
-        [Required(ErrorMessage = "密码必填")]
-        public string Password { get; set; }
-        /// <summary>
         /// 昵称
         /// </summary>
         public string? NickName { get; set; }
         /// <summary>
         /// 手机号码
         /// </summary>
-        public string? PhoneNumber { get; set; }
+        public string? Phonenumber { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
@@ -41,5 +36,10 @@ namespace Xin.Service.User.Dto
         /// 备注
         /// </summary>
         public string? Remark { get; set; }
+        /// <summary>
+        /// 头像Id
+        /// </summary>
+
+        public long? AvatorId { get; set; }
     }
 }

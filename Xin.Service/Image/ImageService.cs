@@ -42,14 +42,9 @@ public class ImageService: IImageService
     /// <returns></returns>
     public async Task<IResultOutput> AddAsync(ImageAddInput input)
     {
-        var isExist = await _fsql.Select<ImageEntity>().AnyAsync(a => a.Name == input.Name);
-        if (isExist)
-        {
-            return ResultOutput.NotOk("图片名称已存在");
-        }
         var imageEntity = input.Adapt<ImageEntity>();
         await _fsql.Insert(imageEntity).ExecuteAffrowsAsync();
-        return ResultOutput.Ok();
+        return ResultOutput.Ok(imageEntity.Id);
     }
     /// <summary>
     /// 编辑

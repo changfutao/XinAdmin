@@ -82,9 +82,9 @@ public class ImageController: BaseController
             string fileExtension = Path.GetExtension(file.FileName);
             // 文件大小
             var fileSize = file.Length;
-            if (fileSize > 1024 * 1024)
+            if (fileSize > 1024 * 1024 * 2)
             {
-                return ResultOutput.NotOk("上传文件不能大于1M");
+                return ResultOutput.NotOk("上传文件不能大于2M");
             }
             // 保存文件名称
             var saveName = file.FileName.Substring(0, file.FileName.LastIndexOf(".")) + "_" +
@@ -96,14 +96,20 @@ public class ImageController: BaseController
                 file.CopyTo(fs);
                 fs.Flush();
             }
-            await _imageService.AddAsync(new ImageAddInput
+            var result = await _imageService.AddAsync(new ImageAddInput
             {
                 ImageCategoryId = imageCategoryId,
                 Name = file.FileName,
                 Path = filePath + saveName,
                 Sort = 100
             });
-            return ResultOutput.Ok();
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            var resultData = result as ResultOutput<long>;
+            return ResultOutput.Ok(new { imgId = resultData.Data, imgPath = filePath + saveName });
         }
         return ResultOutput.NotOk("没有上传文件");
     }
