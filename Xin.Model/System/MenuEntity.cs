@@ -26,7 +26,7 @@ namespace Xin.Model
         /// </summary>
         [Column(Position = 3)]
         [Description("父菜单Id")]
-        public long ParentId { get; set; }
+        public long? ParentId { get; set; }
         /// <summary>
         /// 排序
         /// </summary>
@@ -56,7 +56,7 @@ namespace Xin.Model
         /// </summary>
         [Column(Position = 8, StringLength = 50)]
         [Description("前端路由地址")]
-        public string? FrontRoutePath { get; set; }
+        public string? Component { get; set; }
         /// <summary>
         /// 是否外链
         /// </summary>

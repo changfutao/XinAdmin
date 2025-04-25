@@ -17,7 +17,7 @@ namespace Xin.Service.Menu.Dto
         /// <summary>
         /// 父级Id
         /// </summary>
-        public long ParentId { get; set; }
+        public long? ParentId { get; set; }
         /// <summary>
         /// 图标
         /// </summary>
@@ -33,7 +33,7 @@ namespace Xin.Service.Menu.Dto
         /// <summary>
         /// 前台路由地址
         /// </summary>
-        public string? FrontRoutePath { get; set; }
+        public string? Component { get; set; }
         /// <summary>
         /// 是否外链
         /// </summary>
@@ -50,6 +50,10 @@ namespace Xin.Service.Menu.Dto
         /// 前端按钮权限
         /// </summary>
         public string? Perms { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Sort { get; set; }
         public List<MenuDto>? Children { get; set; }
     }
 }

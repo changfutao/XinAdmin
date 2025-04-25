@@ -13,12 +13,16 @@ namespace Xin.Service.Role.Dto
         /// 角色名称
         /// </summary>
         [Required(ErrorMessage = "角色名称必填")]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 角色编码
         /// </summary>
         [Required(ErrorMessage = "角色编码必填")]
         public string Code { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string? Remark { get; set; }
         /// <summary>
         /// 排序
         /// </summary>

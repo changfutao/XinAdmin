@@ -11,6 +11,7 @@ using Xin.Admin.WebApi.Auth;
 using Xin.Admin.WebApi.Helpers;
 using Xin.Infrastructure;
 using Xin.Infrastructure.Cache;
+using Xin.Infrastructure.Converters;
 using Xin.Infrastructure.Dto;
 using Xin.Infrastructure.Filters;
 using Xin.Infrastructure.Helpers;
@@ -189,7 +190,7 @@ public class Program
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
-            });
+            }).AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
             #endregion
 
             #region 对模型验证进行自定义统一的返回格式

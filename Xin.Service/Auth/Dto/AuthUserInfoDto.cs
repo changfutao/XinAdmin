@@ -11,6 +11,6 @@ namespace Xin.Service.Auth.Dto
     {
         public string? UserName { get; set; }
         public string? NickName { get; set; }
-        public List<MenuDto>? Menus { get; set; }
+        public MenuPermsDto MenuPerms { get; set; }
     }
 }

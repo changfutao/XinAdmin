@@ -40,5 +40,11 @@ namespace Xin.Service.Role
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IResultOutput> GetAsync(long id);
+        /// <summary>
+        /// 给角色设置权限
+        /// </summary>
+        /// <param name="rolePermission"></param>
+        /// <returns></returns>
+        Task<IResultOutput> SetPermission(RolePermissionDto rolePermission);
     }
 }

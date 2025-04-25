@@ -162,7 +162,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu2.ParentId = menu1.Id;
                 menu2.Sort = 1;
                 menu2.FrontName = "user";
-                menu2.FrontRoutePath = "/user";
+                menu2.Component = "/user";
                 menu2.FrontPath = "../views/user/index.vue";
                 menu2.Path = "/api/user/getpage";
                 menus.Add(menu2);
@@ -174,7 +174,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu3.ParentId = menu1.Id;
                 menu3.Sort = 1;
                 menu3.FrontName = "role";
-                menu3.FrontRoutePath = "/role";
+                menu3.Component = "/role";
                 menu3.FrontPath = "../views/role/index.vue";
                 menu3.Path = "/api/role/getpage";
                 menus.Add(menu3);
@@ -186,7 +186,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu4.ParentId = menu1.Id;
                 menu4.Sort = 1;
                 menu4.FrontName = "menu";
-                menu4.FrontRoutePath = "/menu";
+                menu4.Component = "/menu";
                 menu4.FrontPath = "../views/menu/index.vue";
                 menu4.Path = "/api/menu/getpage";
                 menus.Add(menu4);
@@ -198,7 +198,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu5.ParentId = menu2.Id;
                 menu5.Sort = 1;
                 menu5.FrontName = "";
-                menu5.FrontRoutePath = "";
+                menu5.Component = "";
                 menu5.FrontPath = "";
                 menu5.Path = "/api/user/add";
                 menu5.Perms = "api:user:add";
@@ -211,7 +211,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu6.ParentId = menu2.Id;
                 menu6.Sort = 1;
                 menu6.FrontName = "";
-                menu6.FrontRoutePath = "";
+                menu6.Component = "";
                 menu6.FrontPath = "";
                 menu6.Path = "/api/user/edit";
                 menu6.Perms = "api:user:edit";
@@ -224,7 +224,7 @@ namespace Xin.Admin.WebApi.Helpers
                 menu7.ParentId = menu2.Id;
                 menu7.Sort = 1;
                 menu7.FrontName = "";
-                menu7.FrontRoutePath = "";
+                menu7.Component = "";
                 menu7.FrontPath = "";
                 menu7.Path = "/api/user/delete";
                 menu7.Perms = "api:user:delete";

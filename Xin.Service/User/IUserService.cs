@@ -53,5 +53,10 @@ namespace Xin.Service.User
         /// <param name="input"></param>
         /// <returns></returns>
         Task<IResultOutput> ChangePwdAsync(ChangePwdDto input);
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultOutput> GetAllUser();
     }
 }

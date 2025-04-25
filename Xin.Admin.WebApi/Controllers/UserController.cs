@@ -103,5 +103,13 @@ namespace Xin.Admin.WebApi.Controllers
         {
             return ResultOutput.Ok(SexEnum.Man.ToOptionViewModels());
         }
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        public Task<IResultOutput> GetAllUser()
+        {
+            return _userService.GetAllUser();
+        }
     }
 }

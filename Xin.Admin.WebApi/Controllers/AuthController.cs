@@ -93,8 +93,8 @@ namespace Xin.Admin.WebApi.Controllers
                         authUserInfo.UserName = user.UserName;
                         authUserInfo.NickName = user.NickName;
                     }
-                    var userMenus = await _menuService.GetMenusByUserIdAsync(id);
-                    authUserInfo.Menus = userMenus;
+                    var menuDto = await _menuService.GetMenusByUserIdAsync(id);
+                    authUserInfo.MenuPerms = menuDto;
                     return ResultOutput.Ok(authUserInfo);
                 }
             }

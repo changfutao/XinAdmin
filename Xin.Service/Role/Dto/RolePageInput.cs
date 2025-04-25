@@ -11,6 +11,6 @@ namespace Xin.Service.Role.Dto
         /// <summary>
         /// 角色名称
         /// </summary>
-        public string? RoleName { get; set; }
+        public string? Name { get; set; }
     }
 }

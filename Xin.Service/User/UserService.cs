@@ -34,8 +34,8 @@ namespace Xin.Service.User
         public Task<UserEntity> GetAsync(long id)
         {
             return _fsql.Select<UserEntity>()
-                  .Where(a => a.Id == id)
-                  .FirstAsync();
+                .Where(a => a.Id == id)
+                .FirstAsync();
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Xin.Service.User
         public Task<UserEntity> GetUserByNameAsync(string name)
         {
             return _fsql.Select<UserEntity>()
-                        .Where(a => a.UserName == name)
-                        .FirstAsync();
+                .Where(a => a.UserName == name)
+                .FirstAsync();
         }
 
         /// <summary>
@@ -58,23 +58,25 @@ namespace Xin.Service.User
         public async Task<IResultOutput> GetPageAsync(PageInput<UserInput> input)
         {
             var users = await _fsql.Select<UserEntity, ImageEntity>()
-                  .WhereIf(input.Filter != null && !string.IsNullOrEmpty(input.Filter.UserName), (a, b) => a.UserName.Contains(input.Filter.UserName))
-                  .WhereIf(input.Filter != null && input.Filter.Status.HasValue, (a, b) => a.Status == input.Filter.Status.Value)
-                  .LeftJoin((a, b) => a.AvatorId == b.Id)
-                  .Count(out long total)
-                  .Skip((input.CurrentPage - 1) * input.PageSize)
-                  .Take(input.PageSize)
-                  .ToListAsync((a, b) => new UserDto
-                  {
-                      Id = a.Id,
-                      UserName = a.UserName,
-                      NickName = a.NickName,
-                      Phonenumber = a.Phonenumber,
-                      Sex = a.Sex,
-                      Status = a.Status,
-                      AvatorId = a.AvatorId,
-                      AvatorPath = b.Path
-                  });
+                .WhereIf(input.Filter != null && !string.IsNullOrEmpty(input.Filter.UserName),
+                    (a, b) => a.UserName.Contains(input.Filter.UserName))
+                .WhereIf(input.Filter != null && input.Filter.Status.HasValue,
+                    (a, b) => a.Status == input.Filter.Status.Value)
+                .LeftJoin((a, b) => a.AvatorId == b.Id)
+                .Count(out long total)
+                .Skip((input.CurrentPage - 1) * input.PageSize)
+                .Take(input.PageSize)
+                .ToListAsync((a, b) => new UserDto
+                {
+                    Id = a.Id,
+                    UserName = a.UserName,
+                    NickName = a.NickName,
+                    Phonenumber = a.Phonenumber,
+                    Sex = a.Sex,
+                    Status = a.Status,
+                    AvatorId = a.AvatorId,
+                    AvatorPath = b.Path
+                });
             return ResultOutput.Ok(new PageOutput<UserDto>() { Total = total, List = users });
         }
 
@@ -90,6 +92,7 @@ namespace Xin.Service.User
             {
                 return ResultOutput.NotOk("用户名已存在!");
             }
+
             var user = input.Adapt<UserEntity>();
             user.Password = "666666";
             await _fsql.Insert(user).ExecuteAffrowsAsync();
@@ -104,11 +107,12 @@ namespace Xin.Service.User
         public async Task<IResultOutput> DeleteAsync(long[] ids)
         {
             await _fsql.Update<UserEntity>()
-                        .Set(a => a.IsDeleted, true)
-                        .Where(a => ids.Contains(a.Id))
-                        .ExecuteAffrowsAsync();
+                .Set(a => a.IsDeleted, true)
+                .Where(a => ids.Contains(a.Id))
+                .ExecuteAffrowsAsync();
             return ResultOutput.Ok();
         }
+
         /// <summary>
         /// 用户修改
         /// </summary>
@@ -120,6 +124,7 @@ namespace Xin.Service.User
             {
                 return ResultOutput.NotOk("用户已存在");
             }
+
             await _fsql.Update<UserEntity>()
                 .Set(a => a.Status, input.Status)
                 .Set(a => a.Sex, input.Sex)
@@ -140,21 +145,39 @@ namespace Xin.Service.User
         public async Task<IResultOutput> ChangePwdAsync(ChangePwdDto input)
         {
             var user = await _fsql.Select<UserEntity>()
-                  .Where(a => a.Id == input.Id)
-                  .FirstAsync();
+                .Where(a => a.Id == input.Id)
+                .FirstAsync();
             if (user == null)
             {
                 return ResultOutput.NotOk("用户不存在");
             }
+
             if (!user.Password.Equals(input.OriginPwd))
             {
                 return ResultOutput.NotOk("原密码错误");
             }
+
             await _fsql.Update<UserEntity>()
                 .Set(a => a.Password, input.NewPwd)
                 .Where(a => a.Id == input.Id)
                 .ExecuteAffrowsAsync();
             return ResultOutput.Ok();
+        }
+        
+        /// <summary>
+        /// 所有用户下拉框
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IResultOutput> GetAllUser()
+        {
+            var options = await _fsql.Select<UserEntity>()
+                                                .Where(a => a.IsDeleted == false)
+                                                .ToListAsync(a => new OptionOutput()
+                                                {
+                                                    Label = a.UserName,
+                                                    Value = a.Id
+                                                });
+            return ResultOutput.Ok(options);
         }
     }
 }

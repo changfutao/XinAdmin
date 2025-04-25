@@ -60,9 +60,20 @@ namespace Xin.Admin.WebApi.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<IResultOutput> Delete(long[] ids)
+        [HttpPost]
+        public async Task<IResultOutput> Delete(DelDto delDto)
         {
-            return await _roleService.DeleteAsync(ids);
+            return await _roleService.DeleteAsync(delDto.ids);
+        }
+        /// <summary>
+        /// 给角色设置权限
+        /// </summary>
+        /// <param name="rolePermission"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResultOutput> SetPermission(RolePermissionDto rolePermission)
+        {
+            return await _roleService.SetPermission(rolePermission);
         }
     }
  }
